@@ -1,10 +1,12 @@
 import { checkMultipleNumber } from "../diceLogic/throwingDice.js";
 export class Dices {
-    constructor() { }
+    constructor() {
+        this.points = 0;
+        this.multiplesDice = [];
+    }
     createDiceElem(diceNumbers, player) {
         let index = 0;
-        const arrayWithMultiple = checkMultipleNumber(diceNumbers);
-        console.log(arrayWithMultiple, 'multiples');
+        let multiplesArr = checkMultipleNumber(diceNumbers);
         for (let i = 0; i < diceNumbers.length; i++) {
             const dice = document.createElement("button");
             const value = document.createElement("span");
@@ -12,9 +14,10 @@ export class Dices {
             dice.disabled = true;
             dice.id = `player-${index}`;
             index++;
-            if (diceNumbers[i] == arrayWithMultiple[0]) {
+            if (diceNumbers[i] == multiplesArr[0]) {
                 dice.classList.add("multiple", "goodNumber");
                 dice.disabled = false;
+                this.multiplesDice.push(dice);
             }
             if (diceNumbers[i] === 1 || diceNumbers[i] === 5) {
                 dice.classList.add("goodNumber");
@@ -22,10 +25,6 @@ export class Dices {
             }
             value.innerText = diceNumbers[i].toString();
             dice.append(value);
-            dice.addEventListener('click', (event) => {
-                this.checkDices(dice, player);
-                console.log(this.count(dice, arrayWithMultiple));
-            });
             player.append(dice);
         }
     }
@@ -45,23 +44,5 @@ export class Dices {
                 }
             }
         }
-    }
-    count(checked, multiplesArray) {
-        let value = 0;
-        if (multiplesArray.length >= 3 && multiplesArray[0] == 1) {
-            value += multiplesArray[0] * 10 * (multiplesArray.length - 2) * 10;
-        }
-        else if (multiplesArray.length >= 3) {
-            value += multiplesArray[0] * 10 * (multiplesArray.length - 2);
-        }
-        if (multiplesArray.indexOf(1) !== -1 || multiplesArray.indexOf(5) !== -1) {
-        }
-        else if (parseInt(checked.children[0].textContent) == 1) {
-            value += 10;
-        }
-        else if (parseInt(checked.children[0].textContent) == 5) {
-            value += 5;
-        }
-        return value;
     }
 }
