@@ -1,0 +1,121 @@
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-areas: "throw player1 corner-right"
+                        "player3 main player4"
+                        "corner-left player2 footer";
+    height: 100vh;
+    gap: 10px;
+}
+
+.grid-item {
+    font-weight: 800;
+    font-size: 24px;
+    text-align: center;
+    align-content: center;
+    padding: 35px;
+}
+
+.throw {
+    grid-area: throw;
+}
+.player1 {
+    grid-area: player1;
+    background-color: #FBB13C;
+}
+.corner-right {
+    grid-area: corner-right;
+    background-color: gray;
+}
+.corner-left {
+    grid-area: corner-left;
+    background-color: gray;
+}
+.player2 {
+    grid-area: player2;
+    background-color: darkred;
+}
+
+.player3 {
+    grid-area: player3;
+    background-color: blue;
+}
+
+.player4 {
+    grid-area: player4;
+    background-color: darkmagenta;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: chocolate;
+}
+.main {
+    grid-area: main;
+    background-color: firebrick;
+}
+
+.bg-secondary-p {
+    background-color: #57B8FF;
+}
+
+.cubeValue {
+    border: 1px;
+    border-radius: 10px;
+    background-color: white;
+    justify-items: center;
+    padding: 15px;
+}
+
+.gridCube {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    padding-bottom: 15px;
+}
+
+.goodNumber {
+    border: 3px;
+    border-style: solid;
+    border-color: green;
+}
+
+.multiple {
+    border: 3px;
+    border-style: solid;
+    border-color: darkmagenta;
+}
+
+.result {
+    border: solid;
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
+    margin: 10px;
+}
+
+.container {
+    padding: 15px;
+}
+
+.mainContent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 10%;
+}
+
+.points {
+    display: flex;
+    border: solid;
+    border-color: darkmagenta;
+    background-color: white;
+    text-align: left;
+}
+
+.checked {
+    background-color: green;
+}
