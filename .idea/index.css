@@ -20,6 +20,11 @@
 .throw {
     grid-area: throw;
 }
+
+.hidden {
+    visibility: hidden;
+}
+
 .player1 {
     grid-area: player1;
     background-color: #FBB13C;

@@ -2,12 +2,11 @@ import { checkMultipleNumber } from "../diceLogic/throwingDice.js";
 export class Dices {
     constructor() {
         this.points = 0;
-        this.multiples = [];
+        this.multiplesDice = [];
     }
     createDiceElem(diceNumbers, player) {
         let index = 0;
-        this.multiples = checkMultipleNumber(diceNumbers);
-        console.log(this.multiples, 'multiples');
+        let multiplesArr = checkMultipleNumber(diceNumbers);
         for (let i = 0; i < diceNumbers.length; i++) {
             const dice = document.createElement("button");
             const value = document.createElement("span");
@@ -15,9 +14,10 @@ export class Dices {
             dice.disabled = true;
             dice.id = `player-${index}`;
             index++;
-            if (diceNumbers[i] == this.multiples[0]) {
+            if (diceNumbers[i] == multiplesArr[0]) {
                 dice.classList.add("multiple", "goodNumber");
                 dice.disabled = false;
+                this.multiplesDice.push(dice);
             }
             if (diceNumbers[i] === 1 || diceNumbers[i] === 5) {
                 dice.classList.add("goodNumber");

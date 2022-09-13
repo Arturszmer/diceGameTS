@@ -1,18 +1,16 @@
 export const count = (checked, multiplesArray) => {
-    console.log(multiplesArray, 'multiples to count');
+    // console.log(multiplesArray, 'multiples to count');
+    // console.log(parseInt(checked.children[0].textContent), 'checked');
+    // console.log(parseInt(multiplesArray[0].children[0].textContent), 'multiple number');
+    // console.log(parseInt(checked.children[0].textContent) == parseInt(multiplesArray[0].children[0].textContent), 'valid?');
     let value = 0;
-    if (multiplesArray.length >= 3 && multiplesArray[0] == 1 && parseInt(checked.children[0].textContent) == 1) {
-        value += multiplesArray[0] * 10 * (multiplesArray.length - 2) * 10;
+    if (multiplesArray.length >= 3 && parseInt(multiplesArray[0].children[0].textContent) == 1 && parseInt(checked.children[0].textContent) == 1) {
+        value += 1 * 10 * (multiplesArray.length - 2) * 10;
         console.log(value, 'value 1');
     }
-    else if (multiplesArray.length >= 3) {
-        value += multiplesArray[0] * 10 * (multiplesArray.length - 2);
+    else if (multiplesArray.length >= 3 && multiplesArray[0].classList.contains("goodNumber") && parseInt(checked.children[0].textContent) == parseInt(multiplesArray[0].children[0].textContent)) {
+        value += parseInt(multiplesArray[0].children[0].textContent) * 10 * (multiplesArray.length - 2);
         console.log(value, 'value 2');
-    }
-    else {
-        multiplesArray = [];
-    }
-    if (multiplesArray.indexOf(1) !== -1 || multiplesArray.indexOf(5) !== -1) {
     }
     else if (parseInt(checked.children[0].textContent) == 1) {
         value = 0;
