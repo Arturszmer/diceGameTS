@@ -1,11 +1,11 @@
-class Players {
-    constructor(_points) {
-        this._points = _points;
+export class Player {
+    constructor(elements) {
+        this.elements = elements;
     }
-    get points() {
-        return this._points;
+    get getPoints() {
+        return this.points;
     }
-    set points(value) {
-        this._points = value;
+    set setPoints(value) {
+        this.points = value;
     }
 }
