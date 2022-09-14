@@ -3,6 +3,7 @@ export class Dices {
     constructor() {
         this.points = 0;
         this.multiplesDice = [];
+        this.values = [];
     }
     createDiceElem(diceNumbers, player) {
         let index = 0;
@@ -14,6 +15,7 @@ export class Dices {
             dice.disabled = true;
             dice.id = `player-${index}`;
             index++;
+            value.innerText = diceNumbers[i].toString();
             if (diceNumbers[i] == multiplesArr[0]) {
                 dice.classList.add("multiple", "goodNumber");
                 dice.disabled = false;
@@ -23,7 +25,7 @@ export class Dices {
                 dice.classList.add("goodNumber");
                 dice.disabled = false;
             }
-            value.innerText = diceNumbers[i].toString();
+            this.values.push(value);
             dice.append(value);
             player.append(dice);
         }

@@ -1,12 +1,16 @@
 import { Dices } from "./render/dices.js";
+import { Player } from "./players/players.js";
+import { throwDice } from "./diceLogic/throwingDice.js";
 import { count } from "./diceLogic/count.js";
+import { numberOfChecked } from "./diceLogic/validators.js";
 const firstThrowButton = document.querySelector('#firstThrow');
 const nextThrowButton = document.querySelector('#nextThrow');
 const mainButtons = document.querySelector('#mainButtons');
 const result = document.querySelector('#resultZero');
 const player1DiceContainers = document.querySelector('#player1Cube');
 const player2DiceContainers = document.querySelector('#player2Cube');
-let playiningPlayer = player1DiceContainers;
+const player1 = new Player(player1DiceContainers);
+let playiningPlayer = player1.elements;
 let gameResult = 0;
 result.innerText = gameResult.toString();
 console.log("hello");
@@ -28,16 +32,26 @@ const start = () => {
                     gameResult -= count(button, diceElement.multiplesDice);
                 }
                 result.innerText = gameResult.toString();
-                if (gameResult >= 25) {
-                    nextThrowButton.style.display = '';
-                }
-                else {
-                    nextThrowButton.style.display = 'none';
-                }
+                numberOfChecked(playiningPlayer) > 0 ? nextThrowButton.style.display = '' : nextThrowButton.style.display = 'none';
+                // if (gameResult >= 25){
+                //     nextThrowButton.style.display = '';
+                // } else {
+                //     nextThrowButton.style.display = 'none';
+                // }
             });
         }
     });
 };
-const nextRound = () => {
+const nextThrow = () => {
+    nextThrowButton.addEventListener('click', (event) => {
+        const checkedDivs = numberOfChecked(playiningPlayer);
+        const nThrow = throwDice(checkedDivs);
+        console.log(nThrow, 'next throw');
+        for (let v of diceElement.values) {
+            v.textContent = '';
+        }
+        // diceElement.createDiceElem()
+    });
 };
 start();
+nextThrow();

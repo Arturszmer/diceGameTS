@@ -1,12 +1,14 @@
-class Players {
-    constructor(private _points: number) {
+export class Player {
+    private points: number;
+    constructor(public elements: HTMLDivElement) {
+    }
+    get getPoints(): number {
+        return this.points;
     }
 
-    get points(): number {
-        return this._points;
+    set setPoints(value: number) {
+        this.points = value;
     }
 
-    set points(value: number) {
-        this._points = value;
-    }
+
 }

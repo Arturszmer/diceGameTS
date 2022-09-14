@@ -1,7 +1,9 @@
 import {Dices} from "./render/dices.js"
+import {Player} from "./players/players.js"
 import {addNextThrowButton} from "./render/nextThrowButton.js"
 import { throwDice } from "./diceLogic/throwingDice.js"
 import { count } from "./diceLogic/count.js"
+import { numberOfChecked } from "./diceLogic/validators.js"
 
 const firstThrowButton: HTMLButtonElement = document.querySelector('#firstThrow');
 const nextThrowButton: HTMLButtonElement = document.querySelector('#nextThrow');
@@ -10,7 +12,9 @@ const result: HTMLSpanElement = document.querySelector('#resultZero')
 const player1DiceContainers: HTMLDivElement = document.querySelector('#player1Cube')
 const player2DiceContainers: HTMLDivElement = document.querySelector('#player2Cube')
 
-let playiningPlayer: HTMLDivElement = player1DiceContainers;
+const player1 = new Player(player1DiceContainers);
+
+let playiningPlayer: HTMLDivElement = player1.elements;
 let gameResult: number = 0;
 
 result.innerText = gameResult.toString();
@@ -35,18 +39,30 @@ const start = () => {
                     gameResult -= count(button, diceElement.multiplesDice);
                 }
                 result.innerText = gameResult.toString();
-                if (gameResult >= 25){
-                    nextThrowButton.style.display = '';
-                } else {
-                    nextThrowButton.style.display = 'none';
-                }
+                numberOfChecked(playiningPlayer) > 0 ? nextThrowButton.style.display = '' : nextThrowButton.style.display = 'none';
+
+
+                // if (gameResult >= 25){
+                //     nextThrowButton.style.display = '';
+                // } else {
+                //     nextThrowButton.style.display = 'none';
+                // }
             })
         }
     })
 }
 
-const nextRound = () => {
-
+const nextThrow = () => {
+    nextThrowButton.addEventListener('click', (event) => {
+        const checkedDivs: number = numberOfChecked(playiningPlayer);
+        const nThrow = throwDice(checkedDivs)
+        console.log(nThrow, 'next throw')
+        for (let v of diceElement.values){
+            v.textContent = '';
+        }
+        // diceElement.createDiceElem()
+    })
 }
 
 start();
+nextThrow();
