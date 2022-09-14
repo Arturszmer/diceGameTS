@@ -1,6 +1,7 @@
 export class Player {
     constructor(elements) {
         this.elements = elements;
+        this.points = 0;
     }
     get getPoints() {
         return this.points;

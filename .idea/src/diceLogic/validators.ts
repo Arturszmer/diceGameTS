@@ -1,3 +1,5 @@
+import { Player } from "../players/players";
+
 export const posibilityToNextThrow = () => {
 
 }
@@ -10,4 +12,12 @@ export const numberOfChecked = (playiningPlayer: HTMLDivElement) => {
         }
     }
     return numb;
+}
+
+export const posibilityToSavePoints = (gameResult: number, playerPoints: Player, savePointsButton: HTMLButtonElement) => {
+    if (playerPoints.getPoints >= 100) {
+        gameResult >= 25 ? savePointsButton.style.display = '' : savePointsButton.style.display = 'none';
+    } else {
+        gameResult >= 100 ? savePointsButton.style.display = '' : savePointsButton.style.display = 'none';
+    }
 }

@@ -9,3 +9,11 @@ export const numberOfChecked = (playiningPlayer) => {
     }
     return numb;
 };
+export const posibilityToSavePoints = (gameResult, playerPoints, savePointsButton) => {
+    if (playerPoints.getPoints >= 100) {
+        gameResult >= 25 ? savePointsButton.style.display = '' : savePointsButton.style.display = 'none';
+    }
+    else {
+        gameResult >= 100 ? savePointsButton.style.display = '' : savePointsButton.style.display = 'none';
+    }
+};

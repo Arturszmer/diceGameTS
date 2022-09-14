@@ -10,12 +10,11 @@ export class Dices {
         let multiplesArr = checkMultipleNumber(diceNumbers);
         for (let i = 0; i < diceNumbers.length; i++) {
             const dice = document.createElement("button");
-            const value = document.createElement("span");
             dice.classList.add('cubeValue');
             dice.disabled = true;
             dice.id = `player-${index}`;
             index++;
-            value.innerText = diceNumbers[i].toString();
+            let value = this.insertDiceNumbers(diceNumbers[i]);
             if (diceNumbers[i] == multiplesArr[0]) {
                 dice.classList.add("multiple", "goodNumber");
                 dice.disabled = false;
@@ -47,4 +46,10 @@ export class Dices {
             }
         }
     }
+    insertDiceNumbers(diceNumber) {
+        const value = document.createElement("span");
+        value.innerText = diceNumber.toString();
+        return value;
+    }
+    ;
 }
