@@ -9,6 +9,4 @@ export class Player {
     set setPoints(value: number) {
         this.points = value;
     }
-
-
 }

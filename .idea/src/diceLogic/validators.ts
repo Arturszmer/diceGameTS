@@ -28,3 +28,11 @@ export const allNumbersChecked = (throwNumbers: number[], playingPlayer: HTMLDiv
         diceElement.insertNewNumbers(throwNumbers, diceElement.values);
     }
 }
+
+export const checkGoodNumber = (player: Player, nextPlayerButton: HTMLButtonElement) => {
+    for (let element of player.elements.children){
+        if (!element.classList.contains('goodNumber')){
+            nextPlayerButton.style.display = '';
+        }
+    }
+}

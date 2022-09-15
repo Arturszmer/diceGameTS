@@ -24,3 +24,10 @@ export const allNumbersChecked = (throwNumbers, playingPlayer, diceElement) => {
         diceElement.insertNewNumbers(throwNumbers, diceElement.values);
     }
 };
+export const checkGoodNumber = (player, nextPlayerButton) => {
+    for (let element of player.elements.children) {
+        if (!element.classList.contains('goodNumber')) {
+            nextPlayerButton.style.display = '';
+        }
+    }
+};

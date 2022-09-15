@@ -2,10 +2,11 @@ import { Dices } from "./render/dices.js";
 import { Player } from "./players/players.js";
 import { throwDice } from "./diceLogic/throwingDice.js";
 import { count } from "./diceLogic/count.js";
-import { numberOfChecked, posibilityToSavePoints, allNumbersChecked } from "./diceLogic/validators.js";
+import { numberOfChecked, posibilityToSavePoints, allNumbersChecked, checkGoodNumber } from "./diceLogic/validators.js";
 const firstThrowButton = document.querySelector('#firstThrow');
 const nextThrowButton = document.querySelector('#nextThrow');
 const savePointsButton = document.querySelector('#saveButton');
+const nextPlayerButton = document.querySelector('#nextPlayer');
 const mainButtons = document.querySelector('#mainButtons');
 const result = document.querySelector('#resultZero');
 const player1DiceContainers = document.querySelector('#player1Cube');
@@ -23,9 +24,12 @@ let diceElement = new Dices();
 const start = () => {
     firstThrowButton.addEventListener('click', (event) => {
         // const firstThrow = throwDice(0);
-        // const firstThrow = [3, 5, 1, 3, 3];
-        const firstThrow = [6, 6, 2, 4, 3];
+        const firstThrow = [3, 5, 1, 1, 1];
+        // const firstThrow = [6, 6, 2, 4, 3];
+        console.log(firstThrow);
+        console.log(player, 'player?');
         diceElement.createDiceElem(firstThrow, playiningPlayer);
+        checkGoodNumber(player, nextPlayerButton);
         firstThrowButton.style.display = 'none';
         for (let button of playiningPlayer.children) {
             button.addEventListener('click', (event) => {
@@ -63,7 +67,6 @@ const savePoints = () => {
         result.innerText = 0..toString();
         playerPoints.innerText = player.getPoints.toString();
         player.elements.remove();
-        player = player2;
         playiningPlayer = player.elements;
         nextThrowButton.style.display = 'none';
         firstThrowButton.style.display = '';
@@ -71,6 +74,29 @@ const savePoints = () => {
         diceElement = new Dices();
     });
 };
+const nextPlayer = () => {
+    nextPlayerButton.addEventListener('click', (event) => {
+        gameResult = 0;
+        result.innerText = 0..toString();
+        player.elements.remove();
+        playerChange();
+        playiningPlayer = player.elements;
+        nextThrowButton.style.display = 'none';
+        firstThrowButton.style.display = '';
+        savePointsButton.style.display = 'none';
+        nextPlayerButton.style.display = 'none';
+        diceElement = new Dices();
+    });
+};
+function playerChange() {
+    if (player === player1) {
+        player = player2;
+    }
+    else if (player === player2) {
+        player = player1;
+    }
+}
 start();
 nextThrow();
 savePoints();
+nextPlayer();
