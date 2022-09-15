@@ -1,5 +1,5 @@
 export class Player {
-    private points: number;
+    private points: number = 0;
     constructor(public elements: HTMLDivElement) {
     }
     get getPoints(): number {

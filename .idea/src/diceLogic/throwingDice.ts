@@ -16,8 +16,8 @@ export const throwDice = (throwingDice: number) => {
 }
 
 export const checkMultipleNumber = (arr) => {
-    let array = [];
-    for (let i = 1; i <= arr.length + 1; i++){
+    let array: number[] = [];
+    for (let i = 1; i <= 6; i++){
         let filter = filterDice(i, arr);
         if (filter.length >= 3){
             array = filter;
@@ -28,7 +28,7 @@ export const checkMultipleNumber = (arr) => {
 }
 
 const filterDice = (value, arr) => {
-    const newArr = [];
+    const newArr: number[] = [];
     for (let v of arr){
         if (value == v){
             newArr.push(value)

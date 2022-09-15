@@ -16,7 +16,7 @@ export const throwDice = (throwingDice) => {
 };
 export const checkMultipleNumber = (arr) => {
     let array = [];
-    for (let i = 1; i <= arr.length + 1; i++) {
+    for (let i = 1; i <= 6; i++) {
         let filter = filterDice(i, arr);
         if (filter.length >= 3) {
             array = filter;

@@ -124,3 +124,8 @@
 .checked {
     background-color: green;
 }
+
+.immutable {
+    border: dashed !important;
+    border-color: aliceblue !important;
+}

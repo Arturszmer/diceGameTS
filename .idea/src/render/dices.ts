@@ -12,24 +12,50 @@ export class Dices {
 
         for (let i = 0; i < diceNumbers.length; i++){
             const dice: HTMLButtonElement = document.createElement("button");
-            const value: HTMLSpanElement = document.createElement("span");
             dice.classList.add('cubeValue');
             dice.disabled = true;
             dice.id = `player-${index}`;
             index++;
-            value.innerText = diceNumbers[i].toString();
-            if (diceNumbers[i] == multiplesArr[0]){
-                dice.classList.add("multiple", "goodNumber");
-                dice.disabled = false;
-                this.multiplesDice.push(dice);
-            }
-            if (diceNumbers[i] === 1 || diceNumbers[i] === 5){
-                dice.classList.add("goodNumber");
-                dice.disabled = false;
-            }
+            let value = this.createSpan(diceNumbers[i]);
+            this.addMultipleAndGoodNumberClass(diceNumbers[i], multiplesArr, dice);
             this.values.push(value);
             dice.append(value);
             player.append(dice);
+        }
+    }
+
+    private addMultipleAndGoodNumberClass(diceNumber: number, multiples: number[], dice: HTMLButtonElement){
+        dice.disabled = true;
+        if (diceNumber == multiples[0]){
+            dice.classList.add("multiple", "goodNumber");
+            dice.disabled = false;
+            this.multiplesDice.push(dice);
+        }
+        if (diceNumber === 1 || diceNumber === 5){
+            dice.classList.add("goodNumber");
+            dice.disabled = false;
+        }
+    }
+
+    private createSpan(diceNumber: number){
+        const value: HTMLSpanElement = document.createElement("span");
+        value.innerText = diceNumber.toString();
+        return value;
+    };
+
+    public insertNewNumbers(diceNumbers: number[], player: HTMLSpanElement[]){
+        let multiplesArr: number[] = checkMultipleNumber(diceNumbers);
+        let numberId: number = 0;
+        for (let i = 0; i < 5; i++){
+            if (player[i].parentElement.classList.contains('checked')){
+
+            } else {
+                player[i].innerText = diceNumbers[numberId].toString();
+                // @ts-ignore
+                let parentElement: HTMLButtonElement = player[i].parentElement;
+                this.addMultipleAndGoodNumberClass(diceNumbers[numberId], multiplesArr, parentElement)
+                numberId++;
+            }
         }
     }
 
@@ -50,5 +76,18 @@ export class Dices {
             }
         }
     }
+
+    public beforeAllChecked(){
+        for (let v of this.values){
+            if (v.parentElement.classList.contains('checked')){
+                v.parentElement.classList.add('immutable')
+            } else {
+                v.textContent = '';
+                v.parentElement.classList.remove('multiple', 'goodNumber')
+            }
+        }
+
+    }
+
 
 }
