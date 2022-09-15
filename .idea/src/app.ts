@@ -1,9 +1,8 @@
 import {Dices} from "./render/dices.js"
 import {Player} from "./players/players.js"
-import {addNextThrowButton} from "./render/nextThrowButton.js"
 import { throwDice } from "./diceLogic/throwingDice.js"
 import { count } from "./diceLogic/count.js"
-import { numberOfChecked, posibilityToSavePoints } from "./diceLogic/validators.js"
+import { numberOfChecked, posibilityToSavePoints, allNumbersChecked } from "./diceLogic/validators.js"
 
 const firstThrowButton: HTMLButtonElement = document.querySelector('#firstThrow');
 const nextThrowButton: HTMLButtonElement = document.querySelector('#nextThrow');
@@ -26,13 +25,13 @@ result.innerText = gameResult.toString();
 
 console.log("hello")
 
-const diceElement = new Dices();
+let diceElement = new Dices();
 
 const start = () => {
     firstThrowButton.addEventListener('click', (event) => {
         // const firstThrow = throwDice(0);
         // const firstThrow = [3, 5, 1, 3, 3];
-        const firstThrow = [3, 5, 1, 1, 1];
+        const firstThrow = [6, 6, 2, 4, 3];
         diceElement.createDiceElem(firstThrow, playiningPlayer);
         firstThrowButton.style.display = 'none';
         for (let button of playiningPlayer.children){
@@ -45,8 +44,6 @@ const start = () => {
                 }
                 result.innerText = gameResult.toString();
                 numberOfChecked(playiningPlayer) > 0 ? nextThrowButton.style.display = '' : nextThrowButton.style.display = 'none';
-                // gameResult >= 25 ? savePointsButton.style.display = '' : savePointsButton.style.display = 'none';
-                console.log(player.getPoints, 'punkty playera')
                 posibilityToSavePoints(gameResult, player, savePointsButton);
             })
         }
@@ -55,15 +52,20 @@ const start = () => {
 
 const nextThrow = () => {
     nextThrowButton.addEventListener('click', (event) => {
-        const checkedDivs: number = numberOfChecked(playiningPlayer);
-        const nThrow = throwDice(checkedDivs)
+        const nThrow = throwDice(numberOfChecked(playiningPlayer))
+        // const nThrow = [6, 6, 6, 4, 4];
+        diceElement.multiplesDice = [];
+        allNumbersChecked(nThrow, playiningPlayer, diceElement);
+        diceElement.beforeAllChecked();
+        diceElement.insertNewNumbers(nThrow, diceElement.values);
+
+        console.log(numberOfChecked(playiningPlayer), 'number of checked')
+        // const nThrow = [6, 6, 6, 4];
         console.log(nThrow, 'next throw')
-        for (let v of diceElement.values){
-            v.textContent = '';
-        }
-        // diceElement.createDiceElem()
+
     })
 }
+
 
 const savePoints = () => {
     savePointsButton.addEventListener('click', (event) => {
@@ -77,6 +79,7 @@ const savePoints = () => {
         nextThrowButton.style.display = 'none';
         firstThrowButton.style.display = '';
         savePointsButton.style.display = 'none';
+        diceElement = new Dices();
     })
 }
 

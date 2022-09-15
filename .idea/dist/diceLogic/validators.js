@@ -1,9 +1,7 @@
-export const posibilityToNextThrow = () => {
-};
-export const numberOfChecked = (playiningPlayer) => {
+export const numberOfChecked = (playingPlayer) => {
     let numb = 0;
-    for (let i = 0; i < playiningPlayer.children.length; i++) {
-        if (playiningPlayer.children[i].classList.contains('checked')) {
+    for (let i = 0; i < playingPlayer.children.length; i++) {
+        if (playingPlayer.children[i].classList.contains('checked')) {
             numb++;
         }
     }
@@ -15,5 +13,14 @@ export const posibilityToSavePoints = (gameResult, playerPoints, savePointsButto
     }
     else {
         gameResult >= 100 ? savePointsButton.style.display = '' : savePointsButton.style.display = 'none';
+    }
+};
+export const allNumbersChecked = (throwNumbers, playingPlayer, diceElement) => {
+    if (numberOfChecked(playingPlayer) === 5) {
+        for (let dice of diceElement.values) {
+            dice.innerText = '';
+            dice.parentElement.classList.remove('checked', 'immutable', 'multiple', 'goodNumber');
+        }
+        diceElement.insertNewNumbers(throwNumbers, diceElement.values);
     }
 };

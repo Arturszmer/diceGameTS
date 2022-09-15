@@ -14,19 +14,44 @@ export class Dices {
             dice.disabled = true;
             dice.id = `player-${index}`;
             index++;
-            let value = this.insertDiceNumbers(diceNumbers[i]);
-            if (diceNumbers[i] == multiplesArr[0]) {
-                dice.classList.add("multiple", "goodNumber");
-                dice.disabled = false;
-                this.multiplesDice.push(dice);
-            }
-            if (diceNumbers[i] === 1 || diceNumbers[i] === 5) {
-                dice.classList.add("goodNumber");
-                dice.disabled = false;
-            }
+            let value = this.createSpan(diceNumbers[i]);
+            this.addMultipleAndGoodNumberClass(diceNumbers[i], multiplesArr, dice);
             this.values.push(value);
             dice.append(value);
             player.append(dice);
+        }
+    }
+    addMultipleAndGoodNumberClass(diceNumber, multiples, dice) {
+        dice.disabled = true;
+        if (diceNumber == multiples[0]) {
+            dice.classList.add("multiple", "goodNumber");
+            dice.disabled = false;
+            this.multiplesDice.push(dice);
+        }
+        if (diceNumber === 1 || diceNumber === 5) {
+            dice.classList.add("goodNumber");
+            dice.disabled = false;
+        }
+    }
+    createSpan(diceNumber) {
+        const value = document.createElement("span");
+        value.innerText = diceNumber.toString();
+        return value;
+    }
+    ;
+    insertNewNumbers(diceNumbers, player) {
+        let multiplesArr = checkMultipleNumber(diceNumbers);
+        let numberId = 0;
+        for (let i = 0; i < 5; i++) {
+            if (player[i].parentElement.classList.contains('checked')) {
+            }
+            else {
+                player[i].innerText = diceNumbers[numberId].toString();
+                // @ts-ignore
+                let parentElement = player[i].parentElement;
+                this.addMultipleAndGoodNumberClass(diceNumbers[numberId], multiplesArr, parentElement);
+                numberId++;
+            }
         }
     }
     checkDices(dice, player) {
@@ -46,10 +71,15 @@ export class Dices {
             }
         }
     }
-    insertDiceNumbers(diceNumber) {
-        const value = document.createElement("span");
-        value.innerText = diceNumber.toString();
-        return value;
+    beforeAllChecked() {
+        for (let v of this.values) {
+            if (v.parentElement.classList.contains('checked')) {
+                v.parentElement.classList.add('immutable');
+            }
+            else {
+                v.textContent = '';
+                v.parentElement.classList.remove('multiple', 'goodNumber');
+            }
+        }
     }
-    ;
 }
