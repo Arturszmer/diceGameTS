@@ -13,6 +13,7 @@ export class Dices {
             dice.classList.add('cubeValue');
             dice.disabled = true;
             dice.id = `player-${index}`;
+            console.log(dice, 'created button');
             index++;
             let value = this.createSpan(diceNumbers[i]);
             this.addMultipleAndGoodNumberClass(diceNumbers[i], multiplesArr, dice);
@@ -52,6 +53,12 @@ export class Dices {
                 this.addMultipleAndGoodNumberClass(diceNumbers[numberId], multiplesArr, parentElement);
                 numberId++;
             }
+        }
+    }
+    clearNumbersInDices() {
+        for (let numbers of this.values) {
+            numbers.innerText = '';
+            numbers.parentElement.classList.remove('checked', 'immutable', 'multiple', 'goodNumber');
         }
     }
     checkDices(dice, player) {
