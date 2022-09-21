@@ -3,6 +3,7 @@ export class Dices {
     constructor() {
         this.points = 0;
         this.multiplesDice = [];
+        this.dices = [];
         this.values = [];
     }
     createDiceElem(diceNumbers, player) {
@@ -18,6 +19,7 @@ export class Dices {
             this.addMultipleAndGoodNumberClass(diceNumbers[i], multiplesArr, dice);
             this.values.push(value);
             dice.append(value);
+            this.dices.push(dice);
             player.append(dice);
         }
     }
@@ -59,6 +61,7 @@ export class Dices {
             numbers.innerText = '';
             numbers.parentElement.classList.remove('checked', 'immutable', 'multiple', 'goodNumber');
         }
+        this.multiplesDice = [];
     }
     checkDices(dice, player) {
         dice.classList.toggle('checked');
@@ -78,13 +81,14 @@ export class Dices {
         }
     }
     beforeAllChecked() {
-        for (let v of this.values) {
-            if (v.parentElement.classList.contains('checked')) {
-                v.parentElement.classList.add('immutable');
+        for (let i = 0; i < this.dices.length; i++) {
+            if (this.dices[i].classList.contains('checked')) {
+                this.dices[i].classList.add('immutable');
+                this.dices[i].disabled = true;
             }
             else {
-                v.textContent = '';
-                v.parentElement.classList.remove('multiple', 'goodNumber');
+                this.dices[i].children[0].textContent = '';
+                this.dices[i].classList.remove('multiple', 'goodNumber');
             }
         }
     }

@@ -12,4 +12,8 @@ export class Player {
     set setPoints(value) {
         this.points = value;
     }
+    addPoints(gameResult) {
+        console.log(gameResult, 'game');
+        this.points += gameResult;
+    }
 }

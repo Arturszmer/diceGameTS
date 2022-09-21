@@ -128,4 +128,6 @@
 .immutable {
     border: dashed !important;
     border-color: aliceblue !important;
+    background-color: green !important;
+    color: black !important;
 }

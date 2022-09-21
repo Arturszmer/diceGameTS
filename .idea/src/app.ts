@@ -2,7 +2,13 @@ import {Dices} from "./render/dices.js"
 import {Player} from "./players/players.js"
 import { throwDice } from "./diceLogic/throwingDice.js"
 import { count } from "./diceLogic/count.js"
-import {numberOfChecked, posibilityToSavePoints, allNumbersChecked, checkGoodNumber} from "./diceLogic/validators.js"
+import {
+    numberOfChecked,
+    posibilityToSavePoints,
+    allNumbersChecked,
+    checkGoodNumber,
+    numberOfImmutable
+} from "./diceLogic/validators.js"
 
 const firstThrowButton: HTMLButtonElement = document.querySelector('#firstThrow');
 const nextThrowButton: HTMLButtonElement = document.querySelector('#nextThrow');
@@ -29,21 +35,18 @@ const start = () => {
         const firstThrow = throwDice(0);
         // const firstThrow = [3, 5, 1, 1, 1];
         // const firstThrow = [6, 6, 2, 4, 3];
-        console.log(firstThrow)
         if (player.elements.style.display === 'none'){
             player.elements.style.display = '';
 
             player.dices.insertNewNumbers(firstThrow, player.dices.values);
-            checkGoodNumber(player, nextPlayerButton);
+            checkGoodNumber(player, nextPlayerButton, nextThrowButton);
             firstThrowButton.style.display = 'none';
         } else {
             player.dices.createDiceElem(firstThrow, player.elements);
-            checkGoodNumber(player, nextPlayerButton);
+            checkGoodNumber(player, nextPlayerButton, nextThrowButton);
             firstThrowButton.style.display = 'none';
-            for (let button of player.elements.children){
+            for (let button of player.dices.dices){
                 button.addEventListener('click', (event) => {
-                    if (button.classList.contains('immutable')){
-                    }
                     player.dices.checkDices(button, player.elements);
                     if (button.classList.contains("checked")){
                         gameResult += count(button, player.dices.multiplesDice);
@@ -63,27 +66,26 @@ const start = () => {
 
 const nextThrow = () => {
     nextThrowButton.addEventListener('click', (event) => {
-        const nThrow = throwDice(numberOfChecked(player.elements))
-        // const nThrow = [6, 6, 6, 4, 4];
+        const nThrow = throwDice(numberOfImmutable(player.elements))
+        // const nThrow = [5];
+        console.log(nThrow, 'next throw')
         player.dices.multiplesDice = [];
-        console.log('before checked')
-        allNumbersChecked(nThrow, player.elements, player.dices);
+        allNumbersChecked(nThrow, player.elements, player);
         player.dices.beforeAllChecked();
         player.dices.insertNewNumbers(nThrow, player.dices.values);
-        checkGoodNumber(player, nextPlayerButton);
+        checkGoodNumber(player, nextPlayerButton, nextThrowButton);
     })
 }
 
 
 const savePoints = () => {
     savePointsButton.addEventListener('click', (event) => {
-        player.setPoints = gameResult;
+        player.addPoints(gameResult);
         gameResult = 0;
         result.innerText = 0 .toString();
         playerPoints.innerText = player.getPoints.toString();
         player.dices.clearNumbersInDices();
         playerChange();
-        console.log(player.elements, 'save next')
         nextThrowButton.style.display = 'none';
         firstThrowButton.style.display = '';
         savePointsButton.style.display = 'none';
@@ -95,11 +97,7 @@ const nextPlayer = () => {
         gameResult = 0;
         result.innerText = 0 .toString();
         player.dices.clearNumbersInDices();
-        console.log(player.elements, 'before player next')
-
         playerChange();
-
-        console.log(player.elements, 'player next')
         nextThrowButton.style.display = 'none';
         firstThrowButton.style.display = '';
         savePointsButton.style.display = 'none';
@@ -111,10 +109,12 @@ function playerChange() {
     if (player === player1) {
         player1DiceContainers.style.display = 'none';
         player = player2;
+        playerPoints = player2Points;
     } else if (player === player2) {
         player2DiceContainers.style.display = 'none'
         console.log(player.elements, 'in method, player 2')
         player = player1;
+        playerPoints = player1Points;
     }
 }
 

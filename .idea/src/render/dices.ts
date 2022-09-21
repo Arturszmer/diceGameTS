@@ -3,6 +3,7 @@ import { checkMultipleNumber } from "../diceLogic/throwingDice.js"
 export class Dices {
     public points: number = 0;
     public multiplesDice: HTMLButtonElement[] = [];
+    public dices: HTMLButtonElement[] = [];
     public values: HTMLSpanElement[] = [];
     constructor() {}
 
@@ -20,6 +21,7 @@ export class Dices {
             this.addMultipleAndGoodNumberClass(diceNumbers[i], multiplesArr, dice);
             this.values.push(value);
             dice.append(value);
+            this.dices.push(dice)
             player.append(dice);
         }
     }
@@ -63,6 +65,7 @@ export class Dices {
             numbers.innerText = '';
             numbers.parentElement.classList.remove('checked', 'immutable', 'multiple', 'goodNumber');
         }
+        this.multiplesDice = [];
     }
 
     public checkDices(dice: Element, player: Element){
@@ -84,12 +87,13 @@ export class Dices {
     }
 
     public beforeAllChecked(){
-        for (let v of this.values){
-            if (v.parentElement.classList.contains('checked')){
-                v.parentElement.classList.add('immutable')
+        for (let i = 0; i < this.dices.length; i++){
+            if (this.dices[i].classList.contains('checked')){
+                this.dices[i].classList.add('immutable');
+                this.dices[i].disabled = true;
             } else {
-                v.textContent = '';
-                v.parentElement.classList.remove('multiple', 'goodNumber')
+                this.dices[i].children[0].textContent = '';
+                this.dices[i].classList.remove('multiple', 'goodNumber');
             }
         }
 
