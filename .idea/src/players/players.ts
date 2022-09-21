@@ -1,6 +1,12 @@
+import { Dices } from "../render/dices";
+
 export class Player {
     private points: number = 0;
-    constructor(public elements: HTMLDivElement) {
+    private dice: Dices;
+    private playerDiv: HTMLDivElement;
+    constructor(public dices: Dices, public elements: HTMLDivElement) {
+        this.dice = dices;
+        this.playerDiv = elements;
     }
     get getPoints(): number {
         return this.points;
@@ -9,6 +15,8 @@ export class Player {
     set setPoints(value: number) {
         this.points = value;
     }
-
-
+    addPoints(gameResult: number){
+        console.log(gameResult, 'game');
+        this.points += gameResult;
+    }
 }

@@ -2,75 +2,106 @@ import { Dices } from "./render/dices.js";
 import { Player } from "./players/players.js";
 import { throwDice } from "./diceLogic/throwingDice.js";
 import { count } from "./diceLogic/count.js";
-import { numberOfChecked, posibilityToSavePoints, allNumbersChecked } from "./diceLogic/validators.js";
+import { numberOfChecked, posibilityToSavePoints, allNumbersChecked, checkGoodNumber, numberOfImmutable } from "./diceLogic/validators.js";
 const firstThrowButton = document.querySelector('#firstThrow');
 const nextThrowButton = document.querySelector('#nextThrow');
 const savePointsButton = document.querySelector('#saveButton');
+const nextPlayerButton = document.querySelector('#nextPlayer');
 const mainButtons = document.querySelector('#mainButtons');
 const result = document.querySelector('#resultZero');
 const player1DiceContainers = document.querySelector('#player1Cube');
 const player1Points = document.querySelector('#player1Points');
 const player2DiceContainers = document.querySelector('#player2Cube');
-const player1 = new Player(player1DiceContainers);
-const player2 = new Player(player2DiceContainers);
+const player2Points = document.querySelector('#player2Points');
+const player1 = new Player(new Dices(), player1DiceContainers);
+const player2 = new Player(new Dices(), player2DiceContainers);
 let player = player1;
-let playiningPlayer = player.elements;
 let playerPoints = player1Points;
 let gameResult = 0;
 result.innerText = gameResult.toString();
-console.log("hello");
-let diceElement = new Dices();
 const start = () => {
     firstThrowButton.addEventListener('click', (event) => {
-        // const firstThrow = throwDice(0);
-        // const firstThrow = [3, 5, 1, 3, 3];
-        const firstThrow = [6, 6, 2, 4, 3];
-        diceElement.createDiceElem(firstThrow, playiningPlayer);
-        firstThrowButton.style.display = 'none';
-        for (let button of playiningPlayer.children) {
-            button.addEventListener('click', (event) => {
-                diceElement.checkDices(button, playiningPlayer);
-                if (button.classList.contains("checked")) {
-                    gameResult += count(button, diceElement.multiplesDice);
-                }
-                else {
-                    gameResult -= count(button, diceElement.multiplesDice);
-                }
-                result.innerText = gameResult.toString();
-                numberOfChecked(playiningPlayer) > 0 ? nextThrowButton.style.display = '' : nextThrowButton.style.display = 'none';
-                posibilityToSavePoints(gameResult, player, savePointsButton);
-            });
+        const firstThrow = throwDice(0);
+        // const firstThrow = [3, 5, 1, 1, 1];
+        // const firstThrow = [6, 6, 2, 4, 3];
+        if (player.elements.style.display === 'none') {
+            player.elements.style.display = '';
+            player.dices.insertNewNumbers(firstThrow, player.dices.values);
+            checkGoodNumber(player, nextPlayerButton, nextThrowButton);
+            firstThrowButton.style.display = 'none';
+        }
+        else {
+            player.dices.createDiceElem(firstThrow, player.elements);
+            checkGoodNumber(player, nextPlayerButton, nextThrowButton);
+            firstThrowButton.style.display = 'none';
+            for (let button of player.dices.dices) {
+                button.addEventListener('click', (event) => {
+                    player.dices.checkDices(button, player.elements);
+                    if (button.classList.contains("checked")) {
+                        gameResult += count(button, player.dices.multiplesDice);
+                    }
+                    else {
+                        gameResult -= count(button, player.dices.multiplesDice);
+                    }
+                    result.innerText = gameResult.toString();
+                    numberOfChecked(player.elements) > 0 ? nextThrowButton.style.display = '' : nextThrowButton.style.display = 'none';
+                    posibilityToSavePoints(gameResult, player, savePointsButton);
+                });
+            }
         }
     });
 };
 const nextThrow = () => {
     nextThrowButton.addEventListener('click', (event) => {
-        const nThrow = throwDice(numberOfChecked(playiningPlayer));
-        // const nThrow = [6, 6, 6, 4, 4];
-        diceElement.multiplesDice = [];
-        allNumbersChecked(nThrow, playiningPlayer, diceElement);
-        diceElement.beforeAllChecked();
-        diceElement.insertNewNumbers(nThrow, diceElement.values);
-        console.log(numberOfChecked(playiningPlayer), 'number of checked');
-        // const nThrow = [6, 6, 6, 4];
+        const nThrow = throwDice(numberOfImmutable(player.elements));
+        // const nThrow = [5];
         console.log(nThrow, 'next throw');
+        player.dices.multiplesDice = [];
+        allNumbersChecked(nThrow, player.elements, player);
+        player.dices.beforeAllChecked();
+        player.dices.insertNewNumbers(nThrow, player.dices.values);
+        checkGoodNumber(player, nextPlayerButton, nextThrowButton);
     });
 };
 const savePoints = () => {
     savePointsButton.addEventListener('click', (event) => {
-        player.setPoints = gameResult;
+        player.addPoints(gameResult);
         gameResult = 0;
         result.innerText = 0..toString();
         playerPoints.innerText = player.getPoints.toString();
-        player.elements.remove();
-        player = player2;
-        playiningPlayer = player.elements;
+        player.dices.clearNumbersInDices();
+        playerChange();
         nextThrowButton.style.display = 'none';
         firstThrowButton.style.display = '';
         savePointsButton.style.display = 'none';
-        diceElement = new Dices();
     });
 };
+const nextPlayer = () => {
+    nextPlayerButton.addEventListener('click', (event) => {
+        gameResult = 0;
+        result.innerText = 0..toString();
+        player.dices.clearNumbersInDices();
+        playerChange();
+        nextThrowButton.style.display = 'none';
+        firstThrowButton.style.display = '';
+        savePointsButton.style.display = 'none';
+        nextPlayerButton.style.display = 'none';
+    });
+};
+function playerChange() {
+    if (player === player1) {
+        player1DiceContainers.style.display = 'none';
+        player = player2;
+        playerPoints = player2Points;
+    }
+    else if (player === player2) {
+        player2DiceContainers.style.display = 'none';
+        console.log(player.elements, 'in method, player 2');
+        player = player1;
+        playerPoints = player1Points;
+    }
+}
 start();
-nextThrow();
 savePoints();
+nextThrow();
+nextPlayer();
