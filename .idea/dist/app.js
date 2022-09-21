@@ -27,12 +27,12 @@ const start = () => {
         if (player.elements.style.display === 'none') {
             player.elements.style.display = '';
             player.dices.insertNewNumbers(firstThrow, player.dices.values);
-            checkGoodNumber(player, nextPlayerButton, nextThrowButton);
+            checkGoodNumber(player, nextPlayerButton, nextThrowButton, savePointsButton);
             firstThrowButton.style.display = 'none';
         }
         else {
             player.dices.createDiceElem(firstThrow, player.elements);
-            checkGoodNumber(player, nextPlayerButton, nextThrowButton);
+            checkGoodNumber(player, nextPlayerButton, nextThrowButton, savePointsButton);
             firstThrowButton.style.display = 'none';
             for (let button of player.dices.dices) {
                 button.addEventListener('click', (event) => {
@@ -55,12 +55,11 @@ const nextThrow = () => {
     nextThrowButton.addEventListener('click', (event) => {
         const nThrow = throwDice(numberOfImmutable(player.elements));
         // const nThrow = [5];
-        console.log(nThrow, 'next throw');
         player.dices.multiplesDice = [];
         allNumbersChecked(nThrow, player.elements, player);
         player.dices.beforeAllChecked();
         player.dices.insertNewNumbers(nThrow, player.dices.values);
-        checkGoodNumber(player, nextPlayerButton, nextThrowButton);
+        checkGoodNumber(player, nextPlayerButton, nextThrowButton, savePointsButton);
     });
 };
 const savePoints = () => {
@@ -96,7 +95,6 @@ function playerChange() {
     }
     else if (player === player2) {
         player2DiceContainers.style.display = 'none';
-        console.log(player.elements, 'in method, player 2');
         player = player1;
         playerPoints = player1Points;
     }

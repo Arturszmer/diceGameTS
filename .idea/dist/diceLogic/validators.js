@@ -34,7 +34,7 @@ export const allNumbersChecked = (throwNumbers, playingPlayer, diceElement) => {
         diceElement.dices.insertNewNumbers(throwNumbers, diceElement.dices.values);
     }
 };
-export const checkGoodNumber = (player, nextPlayerButton, nextThrowButton) => {
+export const checkGoodNumber = (player, nextPlayerButton, nextThrowButton, saveButton) => {
     let check = true;
     for (let element of player.elements.children) {
         if (element.classList.contains('goodNumber') && !element.classList.contains('immutable')) {
@@ -44,5 +44,6 @@ export const checkGoodNumber = (player, nextPlayerButton, nextThrowButton) => {
     if (check) {
         nextPlayerButton.style.display = '';
         nextThrowButton.style.display = 'none';
+        saveButton.style.display = 'none';
     }
 };

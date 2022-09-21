@@ -40,7 +40,7 @@ export const allNumbersChecked = (throwNumbers: number[], playingPlayer: HTMLDiv
     }
 }
 
-export const checkGoodNumber = (player: Player, nextPlayerButton: HTMLButtonElement, nextThrowButton: HTMLButtonElement) => {
+export const checkGoodNumber = (player: Player, nextPlayerButton: HTMLButtonElement, nextThrowButton: HTMLButtonElement, saveButton: HTMLButtonElement) => {
     let check: boolean = true;
     for (let element of player.elements.children){
         if (element.classList.contains('goodNumber') && !element.classList.contains('immutable')){
@@ -50,5 +50,6 @@ export const checkGoodNumber = (player: Player, nextPlayerButton: HTMLButtonElem
     if (check){
         nextPlayerButton.style.display = '';
         nextThrowButton.style.display = 'none';
+        saveButton.style.display = 'none';
     }
 }
