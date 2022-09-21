@@ -25,9 +25,14 @@ export const allNumbersChecked = (throwNumbers, playingPlayer, diceElement) => {
     }
 };
 export const checkGoodNumber = (player, nextPlayerButton) => {
+    let check = true;
     for (let element of player.elements.children) {
-        if (!element.classList.contains('goodNumber')) {
-            nextPlayerButton.style.display = '';
+        if (element.classList.contains('goodNumber') && !element.classList.contains('immatable')) {
+            console.log(element.classList);
+            check = false;
         }
+    }
+    if (check) {
+        nextPlayerButton.style.display = '';
     }
 };

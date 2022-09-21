@@ -30,9 +30,14 @@ export const allNumbersChecked = (throwNumbers: number[], playingPlayer: HTMLDiv
 }
 
 export const checkGoodNumber = (player: Player, nextPlayerButton: HTMLButtonElement) => {
+    let check: boolean = true;
     for (let element of player.elements.children){
-        if (!element.classList.contains('goodNumber')){
-            nextPlayerButton.style.display = '';
+        if (element.classList.contains('goodNumber') && !element.classList.contains('immatable')){
+            console.log(element.classList)
+            check = false;
         }
+    }
+    if (check){
+        nextPlayerButton.style.display = '';
     }
 }
