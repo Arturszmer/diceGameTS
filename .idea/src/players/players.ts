@@ -16,7 +16,6 @@ export class Player {
         this.points = value;
     }
     addPoints(gameResult: number){
-        console.log(gameResult, 'game');
         this.points += gameResult;
     }
 }

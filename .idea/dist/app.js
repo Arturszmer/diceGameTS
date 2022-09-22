@@ -22,7 +22,7 @@ result.innerText = gameResult.toString();
 const start = () => {
     firstThrowButton.addEventListener('click', (event) => {
         const firstThrow = throwDice(0);
-        // const firstThrow = [3, 5, 1, 1, 1];
+        // const firstThrow = [5, 5, 1, 1, 1];
         // const firstThrow = [6, 6, 2, 4, 3];
         if (player.elements.style.display === 'none') {
             player.elements.style.display = '';
@@ -54,7 +54,8 @@ const start = () => {
 const nextThrow = () => {
     nextThrowButton.addEventListener('click', (event) => {
         const nThrow = throwDice(numberOfImmutable(player.elements));
-        // const nThrow = [5];
+        // const nThrow = [5, 5, 5, 2, 3];
+        nextThrowButton.style.display = 'none';
         player.dices.multiplesDice = [];
         allNumbersChecked(nThrow, player.elements, player);
         player.dices.beforeAllChecked();

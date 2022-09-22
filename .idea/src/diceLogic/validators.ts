@@ -32,11 +32,11 @@ export const posibilityToSavePoints = (gameResult: number, playerPoints: Player,
 export const allNumbersChecked = (throwNumbers: number[], playingPlayer: HTMLDivElement, diceElement: Player) => {
     if (numberOfImmutable(playingPlayer) === 5){
         for (let dice of diceElement.dices.values){
-            console.log(dice, 'dice')
             dice.innerText = '';
             dice.parentElement.classList.remove('checked', 'immutable', 'multiple', 'goodNumber');
         }
         diceElement.dices.insertNewNumbers(throwNumbers, diceElement.dices.values);
+        diceElement.dices.multiplesDice = [];
     }
 }
 
@@ -48,6 +48,7 @@ export const checkGoodNumber = (player: Player, nextPlayerButton: HTMLButtonElem
         }
     }
     if (check){
+
         nextPlayerButton.style.display = '';
         nextThrowButton.style.display = 'none';
         saveButton.style.display = 'none';
