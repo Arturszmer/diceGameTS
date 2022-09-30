@@ -3,6 +3,7 @@ import { Player } from "./players/players.js";
 import { throwDice } from "./diceLogic/throwingDice.js";
 import { count } from "./diceLogic/count.js";
 import { numberOfChecked, posibilityToSavePoints, allNumbersChecked, checkGoodNumber, numberOfImmutable } from "./diceLogic/validators.js";
+import { Sounds } from "./visualAndSound/sounds.js";
 const firstThrowButton = document.querySelector('#firstThrow');
 const nextThrowButton = document.querySelector('#nextThrow');
 const savePointsButton = document.querySelector('#saveButton');
@@ -18,9 +19,14 @@ const player2 = new Player(new Dices(), player2DiceContainers);
 let player = player1;
 let playerPoints = player1Points;
 let gameResult = 0;
+const sounds = new Sounds();
 result.innerText = gameResult.toString();
+const rollerDiceSound = new Audio('soundsAndImages/Throw1.mp3');
+console.log(rollerDiceSound, 'sound');
 const start = () => {
     firstThrowButton.addEventListener('click', (event) => {
+        sounds.audio(5);
+        sounds.throwSound.play();
         const firstThrow = throwDice(0);
         // const firstThrow = [5, 5, 1, 1, 1];
         // const firstThrow = [6, 6, 2, 4, 3];
@@ -53,6 +59,9 @@ const start = () => {
 };
 const nextThrow = () => {
     nextThrowButton.addEventListener('click', (event) => {
+        const sounds = new Sounds();
+        sounds.audio(5 - numberOfImmutable(player.elements));
+        sounds.throwSound.play();
         const nThrow = throwDice(numberOfImmutable(player.elements));
         // const nThrow = [5, 5, 5, 2, 3];
         nextThrowButton.style.display = 'none';
@@ -78,6 +87,7 @@ const savePoints = () => {
 };
 const nextPlayer = () => {
     nextPlayerButton.addEventListener('click', (event) => {
+        console.log(event);
         gameResult = 0;
         result.innerText = 0..toString();
         player.dices.clearNumbersInDices();
