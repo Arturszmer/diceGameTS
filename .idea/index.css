@@ -1,3 +1,4 @@
+
 .menu {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -39,12 +40,12 @@
 }
 .player2 {
     grid-area: player2;
-    background-color: darkred;
+    background-color: tan;
 }
 
 .player3 {
     grid-area: player3;
-    background-color: blue;
+    background-color: blueviolet;
 }
 
 .player4 {
