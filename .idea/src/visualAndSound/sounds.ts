@@ -1,12 +1,7 @@
 export class Sounds {
     private _throwSound: HTMLAudioElement;
-    private _soundDuration: number;
 
     constructor() {
-    }
-
-    get soundDuration(): number {
-        return this._soundDuration;
     }
 
     get throwSound(): HTMLAudioElement {
@@ -19,11 +14,9 @@ export class Sounds {
             switch (ex) {
                 case 1:
                     this._throwSound = new Audio("./soundsAndImages/Throw-full-1.mp3");
-                    this._soundDuration = this.durationThrow(this.throwSound);
                     break;
                 case 2:
                     this._throwSound = new Audio("./soundsAndImages/Throw-full-2.mp3");
-                    this._soundDuration = this.durationThrow(this.throwSound);
                     break;
             }
         } else if (dices > 1) {
@@ -31,10 +24,6 @@ export class Sounds {
         } else if (dices = 1) {
             this._throwSound = new Audio("./soundsAndImages/Throw-one.mp3");
         }
-    }
-
-    durationThrow(e: HTMLAudioElement) {
-        return e.duration
     }
 
 }
