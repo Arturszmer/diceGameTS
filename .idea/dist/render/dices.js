@@ -37,7 +37,9 @@ export class Dices {
     }
     createSpan(diceNumber) {
         const value = document.createElement("span");
-        value.innerText = diceNumber.toString();
+        value.innerHTML = `<img src="./soundsAndImages/Dice-${diceNumber}.png" 
+        width=50 height=50">`;
+        value.setAttribute("data-value", diceNumber.toString());
         return value;
     }
     ;
@@ -48,7 +50,11 @@ export class Dices {
             if (player[i].parentElement.classList.contains('checked')) {
             }
             else {
-                player[i].innerText = diceNumbers[numberId].toString();
+                player[i].removeAttribute("data-value");
+                player[i].setAttribute("data-value", diceNumbers[numberId].toString());
+                // player[i].innerHTML = diceNumbers[numberId].toString();
+                player[i].innerHTML = `<img src="./soundsAndImages/Dice-${diceNumbers[numberId]}.png" 
+        width=50 height=50">`;
                 // @ts-ignore
                 let parentElement = player[i].parentElement;
                 this.addMultipleAndGoodNumberClass(diceNumbers[numberId], multiplesArr, parentElement);

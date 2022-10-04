@@ -47,3 +47,16 @@ export const checkGoodNumber = (player, nextPlayerButton, nextThrowButton, saveB
         saveButton.style.display = 'none';
     }
 };
+export const winnerValidator = (player, gameResult, winButton, nextPlayerButton, nextThrowButton, saveButton) => {
+    if (player.getPoints + gameResult === 1000) {
+        winButton.style.display = '';
+        nextThrowButton.style.display = 'none';
+        nextPlayerButton.style.display = 'none';
+    }
+    else if (player.getPoints + gameResult > 1000) {
+        nextPlayerButton.style.display = '';
+        nextThrowButton.style.display = 'none';
+        saveButton.style.display = 'none';
+        winButton.style.display = 'none';
+    }
+};
