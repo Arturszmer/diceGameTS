@@ -81,6 +81,13 @@
     gap: 10px;
     padding-bottom: 15px;
 }
+.gridCubeSides {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    padding-bottom: 15px;
+}
 
 .goodNumber {
     border: 3px;
@@ -131,4 +138,8 @@
     border-color: aliceblue !important;
     background-color: green !important;
     color: black !important;
+}
+
+img:hover {
+    cursor: pointer;
 }
