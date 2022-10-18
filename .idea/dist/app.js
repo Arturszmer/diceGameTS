@@ -17,10 +17,20 @@ const player1Name = document.querySelector('#player1Name');
 const player2DiceContainers = document.querySelector('#player2Cube');
 const player2Points = document.querySelector('#player2Points');
 const player2Name = document.querySelector('#player2Name');
-const player1 = new Player(new Dices(), player1DiceContainers, "Asia");
-const player2 = new Player(new Dices(), player2DiceContainers, "Artur");
+const player3DiceContainers = document.querySelector('#player3Cube');
+const player3Points = document.querySelector('#player3Points');
+const player3Name = document.querySelector('#player3Name');
+const player4DiceContainers = document.querySelector('#player4Cube');
+const player4Points = document.querySelector('#player4Points');
+const player4Name = document.querySelector('#player4Name');
+const player1 = new Player(new Dices(), player1DiceContainers, "Emilia");
+const player2 = new Player(new Dices(), player2DiceContainers, "Asia");
+const player3 = new Player(new Dices(), player3DiceContainers, "Artur");
+const player4 = new Player(new Dices(), player4DiceContainers, "Nikt");
 player1Name.append(player1.name);
 player2Name.append(player2.name);
+player3Name.append(player3.name);
+player4Name.append(player4.name);
 let player = player1;
 let playerPoints = player1Points;
 let gameResult = 0;
@@ -31,8 +41,6 @@ const start = () => {
         sounds.audio(5);
         sounds.throwSound.play();
         const firstThrow = throwDice(0);
-        // const firstThrow = [5, 5, 1, 1, 1];
-        // const firstThrow = [6, 6, 2, 4, 3];
         if (player.elements.style.display === 'none') {
             player.elements.style.display = '';
             player.dices.insertNewNumbers(firstThrow, player.dices.values);
@@ -68,7 +76,6 @@ const nextThrow = () => {
         sounds.audio(5 - numberOfImmutable(player.elements));
         sounds.throwSound.play();
         const nThrow = throwDice(numberOfImmutable(player.elements));
-        // const nThrow = [5, 5, 5, 2, 3];
         nextThrowButton.style.display = 'none';
         player.dices.multiplesDice = [];
         allNumbersChecked(nThrow, player.elements, player);
@@ -103,16 +110,36 @@ const nextPlayer = () => {
     });
 };
 function playerChange() {
-    if (player === player1) {
-        player1DiceContainers.style.display = 'none';
-        player = player2;
-        playerPoints = player2Points;
+    switch (player) {
+        case player1:
+            player1DiceContainers.style.display = 'none';
+            player = player2;
+            playerPoints = player2Points;
+            break;
+        case player2:
+            player2DiceContainers.style.display = 'none';
+            player = player3;
+            playerPoints = player3Points;
+            break;
+        case player3:
+            player3DiceContainers.style.display = 'none';
+            player = player1;
+            playerPoints = player1Points;
+            break;
+        // case player4:
+        //     player4DiceContainers.style.display = 'none'
+        //     player = player1;
+        //     playerPoints = player1Points;
     }
-    else if (player === player2) {
-        player2DiceContainers.style.display = 'none';
-        player = player1;
-        playerPoints = player1Points;
-    }
+    // if (player === player1) {
+    //     player1DiceContainers.style.display = 'none';
+    //     player = player2;
+    //     playerPoints = player2Points;
+    // } else if (player === player2) {
+    //     player2DiceContainers.style.display = 'none'
+    //     player = player1;
+    //     playerPoints = player1Points;
+    // }
 }
 const winGame = () => {
     winButton.addEventListener('click', (event) => {

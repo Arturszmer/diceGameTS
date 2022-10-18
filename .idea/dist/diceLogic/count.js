@@ -1,5 +1,4 @@
 export const count = (checked, multiplesArray) => {
-    console.log(checked.children[0].getAttribute("data-value"), 'text');
     let value = 0;
     if (multiplesArray.length >= 3 && parseInt(multiplesArray[0].children[0].getAttribute("data-value")) == 1 && parseInt(checked.children[0].getAttribute("data-value")) == 1) {
         value += 1 * 10 * (multiplesArray.length - 2) * 10;

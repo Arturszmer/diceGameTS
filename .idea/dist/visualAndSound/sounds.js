@@ -10,9 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 export class Sounds {
     constructor() {
     }
-    get soundDuration() {
-        return this._soundDuration;
-    }
     get throwSound() {
         return this._throwSound;
     }
@@ -23,11 +20,9 @@ export class Sounds {
                 switch (ex) {
                     case 1:
                         this._throwSound = new Audio("./soundsAndImages/Throw-full-1.mp3");
-                        this._soundDuration = this.durationThrow(this.throwSound);
                         break;
                     case 2:
                         this._throwSound = new Audio("./soundsAndImages/Throw-full-2.mp3");
-                        this._soundDuration = this.durationThrow(this.throwSound);
                         break;
                 }
             }
@@ -38,8 +33,5 @@ export class Sounds {
                 this._throwSound = new Audio("./soundsAndImages/Throw-one.mp3");
             }
         });
-    }
-    durationThrow(e) {
-        return e.duration;
     }
 }

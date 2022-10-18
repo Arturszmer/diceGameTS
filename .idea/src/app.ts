@@ -25,11 +25,21 @@ const player1Name: HTMLDivElement = document.querySelector('#player1Name')
 const player2DiceContainers: HTMLDivElement = document.querySelector('#player2Cube')
 const player2Points: HTMLDivElement = document.querySelector('#player2Points')
 const player2Name: HTMLDivElement = document.querySelector('#player2Name')
+const player3DiceContainers: HTMLDivElement = document.querySelector('#player3Cube')
+const player3Points: HTMLDivElement = document.querySelector('#player3Points')
+const player3Name: HTMLDivElement = document.querySelector('#player3Name')
+const player4DiceContainers: HTMLDivElement = document.querySelector('#player4Cube')
+const player4Points: HTMLDivElement = document.querySelector('#player4Points')
+const player4Name: HTMLDivElement = document.querySelector('#player4Name')
 
-const player1 = new Player(new Dices(), player1DiceContainers, "Asia");
-const player2 = new Player(new Dices(), player2DiceContainers, "Artur");
+const player1 = new Player(new Dices(), player1DiceContainers, "Emilia");
+const player2 = new Player(new Dices(), player2DiceContainers, "Asia");
+const player3 = new Player(new Dices(), player3DiceContainers, "Artur");
+const player4 = new Player(new Dices(), player4DiceContainers, "Nikt");
 player1Name.append(player1.name);
 player2Name.append(player2.name);
+player3Name.append(player3.name);
+player4Name.append(player4.name);
 
 let player: Player = player1;
 let playerPoints: HTMLDivElement = player1Points;
@@ -118,15 +128,37 @@ const nextPlayer = () => {
 }
 
 function playerChange() {
-    if (player === player1) {
-        player1DiceContainers.style.display = 'none';
-        player = player2;
-        playerPoints = player2Points;
-    } else if (player === player2) {
-        player2DiceContainers.style.display = 'none'
-        player = player1;
-        playerPoints = player1Points;
+    switch (player){
+        case player1:
+            player1DiceContainers.style.display = 'none';
+            player = player2;
+            playerPoints = player2Points;
+            break;
+        case player2:
+            player2DiceContainers.style.display = 'none'
+            player = player3;
+            playerPoints = player3Points;
+            break;
+        case player3:
+            player3DiceContainers.style.display = 'none'
+            player = player1;
+            playerPoints = player1Points;
+            break;
+        // case player4:
+        //     player4DiceContainers.style.display = 'none'
+        //     player = player1;
+        //     playerPoints = player1Points;
     }
+
+    // if (player === player1) {
+    //     player1DiceContainers.style.display = 'none';
+    //     player = player2;
+    //     playerPoints = player2Points;
+    // } else if (player === player2) {
+    //     player2DiceContainers.style.display = 'none'
+    //     player = player1;
+    //     playerPoints = player1Points;
+    // }
 }
 
 const winGame = () => {
